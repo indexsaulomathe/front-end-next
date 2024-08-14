@@ -1,30 +1,32 @@
-import { useState } from "react";
-import axios from "axios";
+// @/hooks/useAuth.ts
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getAuthToken } from "@/services/auth";
 
-export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+const useAuth = () => {
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await axios.post(`${process.env.API_URL}/login`, {
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.token);
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.error("Erro ao fazer login", error);
-    }
-  };
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const token = getAuthToken();
+        if (!token) {
+          router.push("/login");
+          return;
+        }
+      } catch (error) {
+        console.error("Authentication check failed", error);
+        router.push("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-  };
+    checkAuth();
+  }, [router]);
 
-  return {
-    isAuthenticated,
-    login,
-    logout,
-  };
+  return { loading };
 };
+
+export default useAuth;
