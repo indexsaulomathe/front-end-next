@@ -23,3 +23,20 @@ export const getWalletByUserId = async (userId: number) => {
     throw error;
   }
 };
+
+export const createWallet = async (
+  userId: number,
+  initialBalance: number
+): Promise<Wallet> => {
+  try {
+    const response = await api.post<Wallet>("/wallets", {
+      userId,
+      balance: initialBalance.toFixed(2),
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Failed to create wallet:", error);
+    throw error;
+  }
+};

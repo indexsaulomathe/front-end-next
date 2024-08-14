@@ -41,13 +41,13 @@ const WalletBalance: React.FC = () => {
 
   return (
     <div className="p-4 bg-white shadow rounded">
-      <h2 className="text-xl font-bold">Saldo da Wallet</h2>
+      <h2 className="text-xl font-bold">Balance of Wallet</h2>
       {wallet ? (
         <p className="text-2xl text-green-600">
           ${parseFloat(wallet.balance).toFixed(2)}
         </p>
       ) : (
-        <p className="text-gray-500">Nenhum saldo disponível.</p>
+        <p className="text-gray-500">No balance available.</p>
       )}
     </div>
   );

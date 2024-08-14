@@ -85,20 +85,39 @@ const TransferForm: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit} className="p-4 bg-white shadow rounded">
         <h3 className="text-lg font-bold mb-4">Transfer</h3>
-        <input
-          type="number"
-          value={recipient}
-          onChange={(e) => setRecipient(parseInt(e.target.value, 10) || 0)}
-          placeholder="Recipient Wallet ID"
-          className="border rounded w-full p-2 mb-4"
-        />
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
-          placeholder="Amount"
-          className="border rounded w-full p-2 mb-4"
-        />
+        <div className="mb-4">
+          <label
+            htmlFor="recipient"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Recipient Wallet ID
+          </label>
+          <input
+            type="number"
+            id="recipient"
+            value={recipient}
+            onChange={(e) => setRecipient(parseInt(e.target.value, 10) || 0)}
+            placeholder="Recipient Wallet ID"
+            className="border rounded w-full p-2"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="amount"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Amount
+          </label>
+          <input
+            type="number"
+            id="amount"
+            value={amount}
+            onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
+            placeholder="Amount"
+            className="border rounded w-full p-2"
+          />
+        </div>
         <button
           type="submit"
           className="bg-blue-600 text-white py-2 px-4 rounded"
